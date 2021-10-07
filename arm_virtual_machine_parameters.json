@@ -1,0 +1,43 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vmName": {
+            "type": "string",
+            "value": "vmsdacz",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "adminUsername": {
+            "type": "string",
+            "value": "aczepiel",
+            "metadata": {
+                "description": "admin username"
+            }
+        },
+        
+        "adminPassword": {
+            "reference": {
+                "keyVault": {
+                    "id": "/subscriptions/7d6c8c18-be16-495e-9e8e-65c92993e378/resourceGroups/rg-sd-acz/providers/Microsoft.KeyVault/vaults/kv-sdaczdevops"
+                },
+                "secretName": "vmpassword"
+            }
+        },
+        "publicIpName": {
+            "type": "string",
+            "value": "pipsdacz",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "dnsLabelPrefix": {
+            "type": "string",
+            "value": "dnssdacz",
+            "metadata": {
+                "description": "description"
+            }
+        }
+    }
+}

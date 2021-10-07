@@ -1,0 +1,49 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": { 
+        "location": {
+            "type": "string",
+            "allowedValues": [
+                "westeurope"
+            ],
+            "value": "westeurope"
+        },
+        "storageAccountName": {
+            "value": "staczdevops001"
+        },
+        "kind": {
+            "type": "string",
+            "value": "StorageV2",
+            "allowedValues": [
+                "BlobStorage",
+                "BlockBlobStorage",
+                "FileStorage",
+                "Storage",
+                "StorageV2"
+            ]
+        },
+        "sku": {
+            "type": "string",
+            "value": "Standard_LRS",
+            "allowedValues": [
+                "Premium_LRS",
+                "Premium_ZRS",
+                "Standard_GRS",
+                "Standard_GZRS",
+                "Standard_LRS",
+                "Standard_RAGRS",
+                "Standard_RAGZRS",
+                "Standard_ZRS"
+            ]
+        },
+        "accessTier": {
+            "type": "string",
+            "value": "Hot",
+            "allowedValues": [
+                "Hot",
+                "Cool"
+            ]
+        }
+    }
+}

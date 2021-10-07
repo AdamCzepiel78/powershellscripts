@@ -1,0 +1,90 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "innerResourceGroup": {
+            "type": "string",
+            "defaultValue": "rg-sd-acz-second",
+            "allowedValues": [
+                "rg-sd-acz",
+                "rg-sd-acz-second"
+            ]
+        },
+        "innerSubscriptionId": {
+            "type": "string",
+            "defaultValue": "7d6c8c18-be16-495e-9e8e-65c92993e378",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "resourceTags": {
+            "type": "object",
+            "defaultValue": {
+                "environment": "devops",
+                "location": "[resourceGroup().location]",
+                "resourceprovider": "Microsoft.Storage",
+                "resourcetype": "storageAccounts",
+                "author": "Adam Czepiel"
+            },
+            "metadata": {
+                "description": "tags of the resource"
+            }
+        }
+    },
+    "functions": [],
+    "variables": {},
+    "resources": [
+        {
+            "name": "nestedDeployment1",
+            "type": "Microsoft.Resources/deployments",
+            "resourceGroup": "[parameters('innerResourceGroup')]",
+            "subscriptionId": "[parameters('innerSubscriptionId')]",
+            "apiVersion": "2020-10-01",
+            "properties": {
+                "expressionEvaluationOptions": {
+                    "scope": "inner"
+                },
+                "mode": "Incremental",
+                "parameters": {
+                },
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {},
+                    "variables": {},
+                    "resources": [
+                        {
+                            "name": "sasdacz2devops",
+                            "type": "Microsoft.Storage/storageAccounts",
+                            "apiVersion": "2019-06-01",
+                            "tags": {
+                                "environment": "devops",
+                                "location": "[resourceGroup().location]",
+                                "resourceprovider": "Microsoft.Storage",
+                                "resourcetype": "storageAccounts",
+                                "author": "Adam Czepiel"
+                            },
+                            "location": "[resourceGroup().location]",
+                            "kind": "StorageV2",
+                            "sku": {
+                                "name": "Premium_LRS"
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "stsdaczdevops01",
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-06-01",
+            "tags": "[parameters('resourceTags')]",
+            "location": "[resourceGroup().location]",
+            "kind": "StorageV2",
+            "sku": {
+                "name": "Standard_LRS"
+            }
+        }
+    ],
+    "outputs": {}
+}
